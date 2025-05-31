@@ -15,7 +15,7 @@ from utils import extract_text_from_pdf, extract_text_from_docx, extract_text_fr
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_community import HuggingFaceEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 import tempfile
 
 # Streamlit app setup
