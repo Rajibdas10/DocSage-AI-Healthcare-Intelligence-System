@@ -1,0 +1,11 @@
+# Ignore virtual environment and Python cache
+.env
+venv/
+__pycache__/
+
+# Ignore common system/editor files
+.DS_Store
+*.pyc
+
+# Ignore Jupyter/IPython artifacts (if any)
+.ipynb_checkpoints/
