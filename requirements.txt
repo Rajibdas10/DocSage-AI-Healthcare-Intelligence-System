@@ -10,3 +10,4 @@ requests
 python-dotenv
 huggingface-hub
 langchain-community>=0.0.30
+xlrd>=2.0.1
