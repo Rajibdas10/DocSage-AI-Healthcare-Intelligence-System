@@ -9,3 +9,4 @@ tiktoken
 requests
 python-dotenv
 huggingface-hub
+langchain-community>=0.0.30
