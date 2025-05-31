@@ -10,10 +10,10 @@ import json
 load_dotenv()
 
 from utils import extract_text_from_pdf, extract_text_from_docx, extract_text_from_excel, extract_text_from_csv, extract_text_from_json
-from langchain.document_loaders import TextLoader
+from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
 import tempfile
 
 # Streamlit app setup
