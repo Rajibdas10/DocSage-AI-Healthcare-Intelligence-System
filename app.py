@@ -1,5 +1,7 @@
 import os
 import tempfile
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)  # Optional
 
 # Set environment variables for Streamlit
 os.environ["STREAMLIT_WATCH_FILE"] = "false"
@@ -10,24 +12,18 @@ os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
 home_dir = tempfile.mkdtemp()
 os.environ["HOME"] = home_dir
 
-
 import io
 import base64
 import streamlit as st
 from dotenv import load_dotenv
 import requests
 import json
-import tempfile
-
-# Load environment variables
-load_dotenv()
 
 from utils import extract_text_from_pdf, extract_text_from_docx, extract_text_from_excel, extract_text_from_csv, extract_text_from_json
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
-
+from langchain_huggingface import HuggingFaceEmbeddings  # ✅ Updated import
 
 # Streamlit page config
 st.set_page_config(page_title="MedValidate AI", layout="wide")
@@ -35,14 +31,21 @@ st.title("🏥 Alles Health AI")
 st.markdown("Upload your **Tariff Document** and ask reimbursement-related questions.")
 
 # API Key setup
+load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
 if not GROQ_API_KEY:
-    st.error("Please set GROQ_API_KEY in your environment variables or Streamlit secrets. Get free API key from: https://groq.com")
+    st.error("Please set GROQ_API_KEY in your environment variables or Streamlit secrets.")
     st.stop()
 
 # File upload + query
 uploaded_file = st.file_uploader("Upload Tariff Document (PDF, Word, Excel, CSV, JSON)", type=['pdf', 'docx', 'xlsx', 'xls', 'csv', 'json'])
-query = st.text_input("💬 Ask Your Reimbursement Question")
+query = st.text_input("💬 Ask Your Reimbursement Question", value=st.session_state.get("query", ""))
+st.session_state.query = query
+
+
+# Prevent repeated generation using session state
+if "answer_generated" not in st.session_state:
+    st.session_state.answer_generated = False
 
 @st.cache_resource
 def load_embeddings():
@@ -60,14 +63,8 @@ def query_groq_api(prompt, max_tokens=200):
     payload = {
         "model": "llama3-8b-8192",
         "messages": [
-            {
-                "role": "system",
-                "content": "You are a medical insurance expert specializing in reimbursement queries. Provide accurate, concise answers based on the provided context."
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
+            {"role": "system", "content": "You are a medical insurance expert specializing in reimbursement queries. Provide accurate, concise answers based on the provided context."},
+            {"role": "user", "content": prompt}
         ],
         "max_tokens": max_tokens,
         "temperature": 0.3,
@@ -83,8 +80,8 @@ def query_groq_api(prompt, max_tokens=200):
         st.error(f"Groq API Error: {e}")
         return None
 
+# File handling + processing
 if uploaded_file:
-    # Temp file setup
     tmp_file = tempfile.NamedTemporaryFile(delete=False, suffix=f".{uploaded_file.name.split('.')[-1]}")
     tmp_path = tmp_file.name
 
@@ -92,7 +89,6 @@ if uploaded_file:
         tmp_file.write(uploaded_file.getvalue())
         tmp_file.close()
 
-        # Extract content
         if uploaded_file.type == "application/pdf":
             content = extract_text_from_pdf(tmp_path)
         elif uploaded_file.type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
@@ -118,7 +114,8 @@ if uploaded_file:
         except:
             pass
 
-    if query and content:
+    # 🔒 Avoid re-execution after one run
+    if query and content and not st.session_state.answer_generated:
         st.info("🔍 Validating query...")
 
         try:
@@ -129,7 +126,7 @@ if uploaded_file:
             with st.spinner("Processing document..."):
                 db = FAISS.from_documents(docs, embeddings)
                 retriever = db.as_retriever(search_kwargs={"k": 3})
-                rel_docs = retriever.get_relevant_documents(query)
+                rel_docs = retriever.invoke(query)  # ✅ Updated from .get_relevant_documents
 
             combined_context = ""
             for doc in rel_docs:
@@ -153,8 +150,11 @@ Please provide a direct, specific answer focusing on medical codes, procedures, 
                 answer = query_groq_api(prompt, max_tokens=200)
 
                 if answer and len(answer) > 20:
-                    st.markdown("### ✅ Answer:")
-                    st.markdown(answer)
+                    try:
+                        st.markdown("### ✅ Answer:")
+                        st.markdown(answer)
+                    except:
+                        st.warning("⚠️ Connection closed before rendering response.")
 
                     output_text = f"Q: {query}\n\nA: {answer}\n\nSources:\n"
                     for i, doc in enumerate(rel_docs):
@@ -167,7 +167,17 @@ Please provide a direct, specific answer focusing on medical codes, procedures, 
                     st.markdown("### 📋 Relevant Information Found:")
                     st.text(context[:800] + "..." if len(context) > 800 else context)
 
+                st.session_state.answer_generated = True  # ✅ Mark as generated
+
         except Exception as e:
             st.error(f"Error in processing: {e}")
             st.markdown("### 📄 Document Content Preview:")
             st.text(content[:1000] + "..." if len(content) > 1000 else content)
+
+# 🔄 Allow re-questioning
+if st.button("Ask another question"):
+    for key in ["answer_generated", "query", "answer", "context"]:
+        if key in st.session_state:
+            del st.session_state[key]
+    st.session_state.query = ""  # optionally clear text input if you're using st.session_state for it
+    st.query_params.clear()# resets the URL state without full rerun
