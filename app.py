@@ -7,7 +7,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 os.environ["STREAMLIT_WATCH_FILE"] = "false"
 os.environ["STREAMLIT_SERVER_HEADLESS"] = "true"
 os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
-
+os.environ["STREAMLIT_CONFIG_DIR"] = "/tmp/.streamlit"
 # Set HOME directory to a writable location
 home_dir = tempfile.mkdtemp()
 os.environ["HOME"] = home_dir
