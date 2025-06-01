@@ -1,6 +1,5 @@
 streamlit
 langchain
-openai
 langchain-community>=0.0.30
 faiss-cpu
 python-docx
