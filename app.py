@@ -1,5 +1,15 @@
 import os
+import tempfile
+
+# Set environment variables for Streamlit
 os.environ["STREAMLIT_WATCH_FILE"] = "false"
+os.environ["STREAMLIT_SERVER_HEADLESS"] = "true"
+os.environ["STREAMLIT_BROWSER_GATHER_USAGE_STATS"] = "false"
+
+# Set HOME directory to a writable location
+home_dir = tempfile.mkdtemp()
+os.environ["HOME"] = home_dir
+
 
 import io
 import base64
@@ -16,7 +26,8 @@ from utils import extract_text_from_pdf, extract_text_from_docx, extract_text_fr
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
+
 
 # Streamlit page config
 st.set_page_config(page_title="MedValidate AI", layout="wide")
