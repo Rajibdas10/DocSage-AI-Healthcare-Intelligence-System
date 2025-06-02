@@ -1,3 +1,14 @@
+---
+title: Healthcare Reimbursement Agent
+emoji: 🧾
+colorFrom: blue
+colorTo: green
+sdk: streamlit
+sdk_version: 1.35.0
+app_file: app/app.py
+pinned: false
+---
+
 # 🏥 Alles Health AI – Reimbursement Assistant
 
 Alles Health AI is a **Streamlit-based AI assistant** designed to help hospital staff and administrators analyze reimbursement-related queries from complex **Tariff Documents** (PDF, Word, Excel, CSV, or JSON). It uses **Llama 3 via Groq API** with **vector search** to provide accurate and concise answers, and offers **PDF download of responses** for record-keeping.
