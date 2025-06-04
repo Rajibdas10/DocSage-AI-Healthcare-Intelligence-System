@@ -17,4 +17,4 @@ sentence-transformers==4.1.0
 transformers==4.52.4
 scikit-learn==1.6.1
 torch==2.7.0
-PyMuPDF-1.26.0
+PyMuPDF==1.21.1
