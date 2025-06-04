@@ -23,8 +23,7 @@ from utils import extract_text_from_pdf, extract_text_from_docx, extract_text_fr
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings  # ✅ Updated import
-
+from langchain_huggingface import HuggingFaceEmbeddings  
 # Streamlit page config
 st.set_page_config(page_title="MedValidate AI", layout="wide")
 st.title("🏥 Alles Health AI")
