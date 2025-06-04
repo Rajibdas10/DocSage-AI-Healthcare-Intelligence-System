@@ -10,4 +10,4 @@ export STREAMLIT_WATCH_FILE=false
 export STREAMLIT_SERVER_HEADLESS=true
 
 # Start the streamlit app
-streamlit run app.py --server.port=7860 --server.address=0.0.0.0
+streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
