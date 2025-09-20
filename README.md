@@ -1,117 +1,137 @@
 
 <img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/027c5173-3d85-410f-b622-8bf4d0ce765a" />
 
----
-
-# 🏥 DocSage: AI Healthcare Intelligence System
-
-Alles Health AI is a **Streamlit-based AI assistant** designed to help hospital staff and administrators analyze reimbursement-related queries from complex **Tariff Documents** (PDF, Word, Excel, CSV, or JSON). It uses **Llama 3 via Groq API** with **vector search** to provide accurate and concise answers, and offers **PDF download of responses** for record-keeping.
+# 🩺 DocSage: AI Healthcare Intelligence System  
+**Revolutionizing healthcare with AI-powered document intelligence, empathetic assistance, and personalized recommendations.**  
 
 ---
 
-## 🚀 Features
+## 🚀 Project Goal  
+To revolutionize healthcare document interaction and patient engagement by creating an AI-driven system that can:  
+- Intelligently process medical inputs across multiple formats.  
+- Generate structured clinical summaries.  
+- Provide personalized health recommendations.  
+- Assist patients empathetically through a sentiment-aware chatbot.  
 
-* 📁 Upload tariff documents in multiple formats (PDF, DOCX, XLSX, CSV, JSON)
-* 🧠 Extracts key medical information using `langchain` + `FAISS` vector DB
-* 🤖 Answers queries with Groq’s blazing-fast LLaMA 3 model
-* 📝 Downloadable PDF summaries of answers with context
-* 💡 Easy UI for non-technical users via Streamlit
-
----
-
-## 📸 Example Test Queries
-
-> (See screenshots in the `/examples` folder or refer to this sample image)
-
-Here are some sample queries you can test:
-
-| 📄 Document Content                              | 💬 Example Queries                        |
-| ------------------------------------------------ | ----------------------------------------- |
-| Includes procedures like Dialysis, MRI, Surgery  | `What is the reimbursement for dialysis?` |
-| Contains hospital stay and room category charges | `What are the ICU charges per day?`       |
-| Includes diagnostic or test codes and fees       | `What is the cost for MRI with contrast?` |
+👉 In short: Making healthcare data **accessible, actionable, and empathetic** through AI.  
 
 ---
 
-## ⚙️ How to Run Locally
+## ✨ Core Features  
 
-1. **Clone the repo**
+1. **📑 QnA System**  
+   - Accepts **universal inputs** (PDF, JSON, Excel, prescriptions).  
+   - Answers complex, context-based medical queries using **RAG (Retrieval-Augmented Generation)**.  
 
-```bash
-git clone https://github.com/yourusername/alles-health-ai.git
-cd alles-health-ai
-```
+2. **📝 Clinical Summary Generator**  
+   - Automatically categorizes prescription details:  
+     - **Medicines → Medicine Section**  
+     - **Tests → Test Section**  
+     - **Patient Info → Personal Section**  
+   - Outputs **clean, structured summaries** for clinical use.  
 
-2. **Create a virtual environment**
+3. **⚡ Recommendation Engine**  
+   - Provides **personalized suggestions** across:  
+     - Diet  
+     - Lifestyle  
+     - Exercise  
+     - Daily habits  
+   - Dynamically adapts to patient **age, condition, and medical history**.  
 
-```bash
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-```
-
-3. **Install dependencies**
-
-```bash
-pip install -r requirements.txt
-```
-
-4. **Set your API key**
-   Create a `.env` file in the root with:
-
-```
-GROQ_API_KEY=your_groq_api_key
-```
-
-> Get your free API key from [https://console.groq.com](https://console.groq.com)
-
-5. **Run the app**
-
-```bash
-streamlit run app.py
-```
+4. **💬 Sentiment-Aware Chatbot**  
+   - Performs **sentiment analysis** on user input.  
+   - Encourages positivity if patients express stress, depression, or negative feelings.  
+   - Provides **safe, ethical responses** aligned with healthcare protocols.  
 
 ---
 
-## 📦 Project Structure
+## 🧰 Tech Stack  
 
-```
-├── app.py                    # Streamlit app
-├── utils.py                  # File parsers for PDF, Excel, etc.
-├── requirements.txt
-├── .env                      # Your GROQ_API_KEY
-├── /examples                 # Sample screenshots
-```
-
----
-
-## 🛠️ Trade-offs and Improvements
-
-### ✅ Trade-offs:
-
-* Using `all-MiniLM-L6-v2` embeddings ensures low latency but may not capture deep domain semantics.
-* Groq LLaMA 3 (8B) model is fast and free, but not fine-tuned on medical data.
-* Only supports single-file input at a time (no multi-document analysis yet).
-
-### 🚀 Future Improvements:
-
-* Add multi-document support with combined vector stores.
-* Upgrade to domain-specific medical embeddings (e.g., BioBERT).
-* Allow user to select answer length, chunk size, and context window dynamically.
-* Implement role-based access if deployed in hospitals.
+- **Core Language**: Python  
+- **Frameworks**: Transformers, Streamlit  
+- **LLMs**: LLaMA 70B & 8B (via Groq API, free resource)  
+- **Embeddings**:  
+  - `all-MiniLM-L6-v2`  
+  - `bge-small-en-v1.5`  
+  - `bge-base-en-v1.5`  
+- **Vector DB**: ChromaDB (via LlamaIndex)  
+- **Dynamic Switching**: Users can choose **LLM + embedding model** directly from UI.  
+- **UI Customization (no coding needed)**:  
+  - Chunk size  
+  - Chunk overlap  
+  - Top-k retrieval results  
 
 ---
 
-## 📄 License
+## 🌟 Unique Selling Points  
 
-This project is open-source under the [MIT License](LICENSE).
+- **All-in-One Healthcare AI** – Combines QnA, summaries, recommendations, and sentiment analysis.  
+- **Universal Input Flexibility** – Works with PDF, JSON, Excel, and more.  
+- **Empathy-Driven AI** – Unlike most systems, our chatbot **encourages positivity & mental wellness**.  
+- **Dynamic Model Switching** – Recruiters see adaptability and **future-proof design**.  
+- **User-Friendly** – Non-technical users can adjust NLP parameters directly from UI.  
 
 ---
 
-## 🙌 Acknowledgements
+## 👥 Target Audience  
 
-* [LangChain](https://www.langchain.com/)
-* [Groq API](https://groq.com/)
-* [Streamlit](https://streamlit.io/)
-* Inspired by real-world reimbursement challenges in healthcare.
+- 🏥 **Hospitals & Doctors** – Quickly extract structured insights from medical documents.  
+- 🧾 **Insurance & Medical Billing** – Automate claim analysis and verification.  
+- 👩‍👩‍👧 **Patients & Caregivers** – Access personalized, AI-driven healthcare advice.  
+- 🏋️ **Wellness & Fitness Startups** – Expand into lifestyle and preventive healthcare.  
+- 🚀 **AI Healthcare Enterprises** – Potential for scaling into production-ready platforms.  
 
+---
+
+## 📈 Impact & Achievements  
+
+- **Efficiency Boost**: Reduces manual time in analyzing prescriptions and medical docs.  
+- **Empathy Layer**: Introduces mental wellness as part of healthcare AI.  
+- **Scalability**: Dynamic embeddings + LLM switching = highly adaptable system.  
+
+⚠️ *Note*: Quantitative metrics (accuracy, latency, efficiency) are in progress.  
+➡️ Future measurement methods:  
+- Avg. **query response time (ms)**  
+- **Accuracy of medical entity extraction (%)**  
+- **User satisfaction rating (%)** from test users  
+
+---
+
+## 🔮 Future Scope / Roadmap  
+
+1. **EHR / EMR Integration** – Plug into hospital records for live data.  
+2. **Multilingual Clinical Support** – Reach patients in **regional languages**.  
+3. **Wearable Data Integration** – AI-driven insights from Fitbit, Apple Watch, etc.  
+4. **Explainable AI Dashboard** – Transparency in why recommendations are made.  
+5. **Voice-Enabled AI Assistant** – Doctors & patients interact hands-free.  
+6. **Predictive Analytics** – Forecast potential conditions from patient history.  
+7. **HIPAA-Compliant Collaboration Layer** – Securely connect patients, doctors, and insurers.  
+
+---
+
+## 📸 Demo & Screenshots  
+
+🎥 **Demo Video Placeholder** – *Coming Soon*  
+🖼️ **Screenshots Placeholder** – Add interface GIFs/screenshots here  
+
+---
+
+## 📢 Call to Action  
+
+DocSage is more than a project — it’s a **visionary step** toward intelligent, empathetic healthcare.  
+
+- 🔗 [Live Demo Placeholder](#)  
+- ⭐ Star this repo if you find it impactful  
+- 🛠️ Fork and contribute new features  
+- 💼 Recruiters / Collaborators: Let’s connect to scale healthcare AI together  
+
+---
+
+## 📞 Contact  
+
+👤 **Rajib Das**  
+📧 [Your Email Placeholder]  
+🌐 [LinkedIn / Portfolio Placeholder]  
+
+---
 
