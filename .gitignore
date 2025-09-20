@@ -10,3 +10,5 @@ __pycache__/
 # Ignore Jupyter/IPython artifacts (if any)
 .ipynb_checkpoints/
 .env
+echo "backupfilesLANGCHAIN /" >> .gitignore
+echo "backupfilesLLAMAINDEX /" >> .gitignore
