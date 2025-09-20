@@ -1,4 +1,3 @@
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/30a1933d-1844-4068-b835-57bb43373bfc" />
 
 ---
 title: Healthcare Reimbursement Agent
