@@ -48,27 +48,23 @@ To revolutionize healthcare document interaction and patient engagement by creat
 ## 🧰 Tech Stack  
 
 - **Core Language**: Python  
-- **Frameworks**: Transformers, Streamlit  
+- **Frameworks**: Llamaindex, LangChain, Transformers, Streamlit  
 - **LLMs**: LLaMA 70B & 8B (via Groq API, free resource)  
 - **Embeddings**:  
   - `all-MiniLM-L6-v2`  
   - `bge-small-en-v1.5`  
   - `bge-base-en-v1.5`  
 - **Vector DB**: ChromaDB (via LlamaIndex)  
-- **Dynamic Switching**: Users can choose **LLM + embedding model** directly from UI.  
-- **UI Customization (no coding needed)**:  
-  - Chunk size  
-  - Chunk overlap  
-  - Top-k retrieval results  
+- **Deplyment**: Docker, AWS  
 
 ---
 
 ## 🌟 Unique Selling Points  
 
-- **All-in-One Healthcare AI** – Combines QnA, summaries, recommendations, and sentiment analysis.  
+- **All-in-One Healthcare AI** – Combines QnA, summaries, recommendations, and a sentiment-aware chatbot.  
 - **Universal Input Flexibility** – Works with PDF, JSON, Excel, and more.  
 - **Empathy-Driven AI** – Unlike most systems, our chatbot **encourages positivity & mental wellness**.  
-- **Dynamic Model Switching** – Recruiters see adaptability and **future-proof design**.  
+- **Dynamic Model Switching** – Users can choose **LLM + embedding model** directly from UI.
 - **User-Friendly** – Non-technical users can adjust NLP parameters directly from UI.  
 
 ---
