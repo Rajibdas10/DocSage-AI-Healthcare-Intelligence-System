@@ -130,8 +130,9 @@ DocSage is more than a project — it’s a **visionary step** toward intelligen
 ## 📞 Contact  
 
 👤 **Rajib Das**  
-📧 [Your Email Placeholder]  
-🌐 [LinkedIn / Portfolio Placeholder]  
+📧 rajibdas10.10.1999@gmail.com 
+🌐 https://www.linkedin.com/in/rajib-das1/
+💼 [Portfolio link]
 
 ---
 
